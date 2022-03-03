@@ -8,16 +8,13 @@ $dbh = connect_db();
 
 // SQL文の組み立て
 // PDO処理でのあいまい検索
-$keyword = '';
 $keyword = filter_input(INPUT_GET, 'keyword');
+$sql = 'SELECT * FROM animals';
 
-if ($keyword) {
+if (!empty($keyword)) {
     $keyword_param = '%' . $keyword . '%'; // %ではさむ
-    $sql = 'SELECT * FROM animals WHERE description LIKE :keyword_param';
-} else {
-    $sql = 'SELECT * FROM animals';
+    $sql .= ' WHERE description LIKE :keyword_param';
 }
-
 // プリペアドステートメントの準備
 // $dbh->query($sql) でも良い
 $stmt = $dbh->prepare($sql);
