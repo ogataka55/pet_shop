@@ -15,6 +15,7 @@ if (!empty($keyword)) {
     $keyword_param = '%' . $keyword . '%'; // %ではさむ
     $sql .= ' WHERE description LIKE :keyword_param';
 }
+
 // プリペアドステートメントの準備
 // $dbh->query($sql) でも良い
 $stmt = $dbh->prepare($sql);
